@@ -11,7 +11,7 @@ const Users = () => {
 
   useEffect(() => {
     if (!localStorage.getItem("user")) {
-      navigate("/login");
+      navigate("/react-task/login");
     }
   }, [navigate]);
 

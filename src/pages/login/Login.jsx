@@ -27,7 +27,7 @@ const Login = () => {
       let info = users.find((item) => item.email === values.Email);
       if (info) {
         localStorage.setItem("user", JSON.stringify(values.Email));
-        navigate("/");
+        navigate("/react-task/");
       } else {
         alert("Please enter a valid email address");
       }

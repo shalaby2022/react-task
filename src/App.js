@@ -7,8 +7,8 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Users />} />
-        <Route path="login" element={<Login />} />
+        <Route path="/react-task/" element={<Users />} />
+        <Route path="/react-task/login" element={<Login />} />
       </Routes>
     </Router>
   );
