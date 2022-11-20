@@ -18,9 +18,11 @@ const Users = () => {
   const handleShowAdd = () => setShowAdd(true);
 
   const [showEdit, setShowEdit] = useState(false);
+  const [editId, setEditId] = useState("");
   const handleCloseEdit = () => setShowEdit(false);
-  const handleShowEdit = (e) => {
-    console.log(e);
+  const handleShowEdit = (id) => {
+    console.log(id);
+    setEditId(id);
     setShowEdit(true);
   };
 
@@ -70,7 +72,7 @@ const Users = () => {
       ...renderUsers.map((user) =>
         user.id === id
           ? {
-              id: formikEdit.values.id,
+              id: id,
               name: formikEdit.values.name,
               username: formikEdit.values.username,
               email: formikEdit.values.email,
@@ -114,7 +116,7 @@ const Users = () => {
 
   const formikEdit = useFormik({
     initialValues: {
-      id: "",
+      id: editId,
       name: "",
       username: "",
       email: "",
@@ -124,7 +126,7 @@ const Users = () => {
       company: "",
     },
     validationSchema: Yup.object({
-      id: Yup.string().required("Id Required").min("1"),
+      // id: Yup.string().required("Id Required").min("1"),
       name: Yup.string().required("Name Required").min("3"),
       username: Yup.string().required("username Required").min("3"),
       email: Yup.string().email().required("username Required").min("3"),
@@ -133,9 +135,9 @@ const Users = () => {
       website: Yup.string().required("Website Required").min(" 10"),
       company: Yup.string().required("Company Required").min(" 6"),
     }),
-    onSubmit: ({ id }) => {
-      console.log(id);
-      handleEdit(id);
+    onSubmit: (values) => {
+      console.log(editId);
+      handleEdit(editId);
     },
   });
 
@@ -384,7 +386,10 @@ const Users = () => {
                   </button>
                 </th>
                 <th>
-                  <Button variant="success" onClick={handleShowEdit}>
+                  <Button
+                    variant="success"
+                    onClick={() => handleShowEdit(user.id)}
+                  >
                     Edit
                   </Button>
                   <Modal
@@ -399,7 +404,7 @@ const Users = () => {
                     <Modal.Body>
                       <form onSubmit={formikEdit.handleSubmit} className="form">
                         <div className="content">
-                          <input
+                          {/* <input
                             type="text"
                             placeholder="id"
                             value={formikEdit.values.id}
@@ -419,7 +424,7 @@ const Users = () => {
                             >
                               {formikEdit.errors.id}
                             </h6>
-                          )}
+                          )} */}
 
                           <input
                             type="text"
@@ -587,7 +592,7 @@ const Users = () => {
                       </Button>
                       <Button
                         variant="primary"
-                        onClick={() => handleEdit(user.id)}
+                        onClick={formikEdit.handleSubmit}
                       >
                         Send
                       </Button>
